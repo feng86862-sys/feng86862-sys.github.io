@@ -126,29 +126,41 @@
 
         .thank-you-message {
             position: absolute;
-            top: 20%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%) scale(0);
+            transform: translate(-50%, -50%) scale(0);
             color: #ff66b3;
-            font-size: 22px;
+            font-size: 40px;
             font-weight: bold;
             text-align: center;
-            animation: appear 2s ease forwards;
+            animation: appear 2s ease forwards, disappear 2s 5s ease forwards;
             opacity: 0;
+            z-index: 1000;
+            white-space: nowrap;
         }
 
         @keyframes appear {
             0% {
-                transform: translateX(-50%) scale(0);
+                transform: translate(-50%, -50%) scale(0);
                 opacity: 0;
             }
             50% {
-                transform: translateX(-50%) scale(1.1);
+                transform: translate(-50%, -50%) scale(1.2);
                 opacity: 1;
             }
             100% {
-                transform: translateX(-50%) scale(1);
+                transform: translate(-50%, -50%) scale(1);
                 opacity: 1;
+            }
+        }
+
+        @keyframes disappear {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
             }
         }
     </style>
@@ -177,10 +189,11 @@
         const heartRain = document.getElementById('heartRain');
 
         const messages = [
-            "谢谢你，程程，奶茶来了！🥤",
-            "你真好，奶茶等着你哦！🍵",
-            "心动的感觉，奶茶送到！💖",
-            "程程，来一杯幸福的奶茶！😊"
+            "程程，你好棒！奶茶等着你！🥤",
+            "感谢你的奶茶！💖我已经迫不及待了！",
+            "你是我的小甜心呀，奶茶马上就来！😊",
+            "心动的奶茶来啦！快来喝吧！🍵💕",
+            "哇，程程真好，奶茶等着你哦！🤩"
         ];
 
         function createHeartRain() {
@@ -214,11 +227,10 @@
             messageElement.innerHTML = message;
             document.body.appendChild(messageElement);
 
-            // 动画效果
+            // 自动消失
             setTimeout(() => {
-                messageElement.style.opacity = 1;
-                messageElement.style.transform = 'translateX(-50%) scale(1)';
-            }, 50);
+                messageElement.remove();
+            }, 7000); // 7秒后消失
 
             // 按钮增大
             const currentScale = parseFloat(yesBtn.style.transform.replace('scale(', '').replace(')', '')) || 1;
