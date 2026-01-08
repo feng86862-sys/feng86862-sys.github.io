@@ -175,7 +175,12 @@
             // 增大按钮
             const currentScale = parseFloat(yesBtn.style.transform.replace('scale(', '').replace(')', '')) || 1;
             yesBtn.style.transform = `scale(${currentScale + 0.1})`;
-            alert("谢谢你的奶茶！喵~🥤");
+            if (parseFloat(yesBtn.style.transform.replace('scale(', '').replace(')', '')) >= 3) {
+                alert("谢谢你的奶茶！喵~🥤");
+                // Disable buttons once "yes" is clicked enough times
+                yesBtn.disabled = true;
+                noBtn.disabled = true;
+            }
         });
         
         let noBtnSize = 1; 
@@ -196,7 +201,18 @@
         });
 
         noBtn.addEventListener('click', function() {
-            alert("呜呜呜...你真的不请我喝吗？");
+            // 'no' does not give text feedback but keeps moving and shrinking
+            setTimeout(() => {
+                const container = document.querySelector('.container');
+                const containerRect = container.getBoundingClientRect();
+                const btnRect = noBtn.getBoundingClientRect();
+                const maxX = containerRect.width - btnRect.width - 20;
+                const maxY = containerRect.height - btnRect.height - 100;
+                const newX = Math.random() * maxX;
+                const newY = Math.random() * maxY;
+                noBtn.style.left = newX + 'px';
+                noBtn.style.top = newY + 'px';
+            }, 200);
         });
     </script>
 </body>
