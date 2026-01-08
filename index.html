@@ -147,7 +147,7 @@
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
         const heartRain = document.getElementById('heartRain');
-        
+
         function createHeartRain() {
             for (let i = 0; i < 30; i++) {
                 setTimeout(() => {
@@ -172,6 +172,9 @@
         setInterval(createHeartRain, 5000);
         
         yesBtn.addEventListener('click', function() {
+            // 增大按钮
+            const currentScale = parseFloat(yesBtn.style.transform.replace('scale(', '').replace(')', '')) || 1;
+            yesBtn.style.transform = `scale(${currentScale + 0.1})`;
             alert("谢谢你的奶茶！喵~🥤");
         });
         
@@ -188,7 +191,7 @@
             noBtn.style.left = newX + 'px';
             noBtn.style.top = newY + 'px';
 
-            noBtnSize *= 0.9;
+            noBtnSize *= 0.9; // 按钮逐渐缩小
             noBtn.style.transform = `scale(${noBtnSize})`;
         });
 
